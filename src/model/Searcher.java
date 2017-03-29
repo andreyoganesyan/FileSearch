@@ -1,7 +1,7 @@
 package model;
 
 import java.io.File;
-import java.io.FileFilter;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -44,10 +44,11 @@ public class Searcher implements Callable<List<SearchResult>> {
                 }
             }
             return innerSearchResults;
-        } else {
+        } else if(mask.equals("")||file.getName().matches(mask)) {
             TextSearcher textSearcher = new TextSearcher(file);
             return textSearcher.find(target);
         }
+        return Collections.emptyList();
     }
 
 }
